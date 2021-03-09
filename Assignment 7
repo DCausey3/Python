@@ -1,0 +1,82 @@
+j = 0
+k = 0
+import random
+
+#  determine  position of hare
+def hare_position(pos):
+    k = 0
+    numh = random.randint(0, 10)
+    if numh >= 3 and numh <= 4:
+        k += 7
+        return pos
+    elif numh == 5:
+        k -= 10
+        return min(pos + 7, 50)
+    elif numh >= 6 and numh <= 8:
+        k += 1
+        return max(1, pos - 10)
+    else:
+        k -= 2
+        return min(pos + 1, 50)
+    if k < 0:
+        k = 0
+    if k < 0:
+        k = 0
+    if k > 50:
+        k = 50
+    k = k * '*'
+
+# determine  position of tortoise
+def tortoise_position(pos):
+    j = 0
+    numt = random.randint(1, 10)
+    if numt >= 1 and numt <= 5:
+        j += 3
+        return max(0, pos - 5)
+    elif numt >= 6 and numt <= 7:
+        j -= 5
+        return min(pos + 3, 50)
+    else:
+        j += 1
+        return min(pos + 1, 50)
+    if j > 50:
+        j = 50
+    if j < 0:
+        j = 0
+    j = j * '*'
+
+#  print  race progress
+def display_track(hare, tortoise):
+    for i in range(1, 51):
+        if i == hare:
+            print("H", end="")
+            continue
+        if i == tortoise:
+            print("T", end="")
+        else:
+            print(" ", end="")
+    print()
+
+def main():
+    print('On your Mark......GET.....Set....Go...!')
+    #tracks for  hare and tortoise
+    track = [" "] * 51
+    time = 0
+    # inalizing current positions
+    hare = 1
+    tortoise = 1
+    while hare < 50 and tortoise < 50:
+        # choosing the current position for hare and tortoise
+        hare = hare_position(hare)
+        tortoise = hare_position(tortoise)
+        time += 1
+       
+        
+        display_track(hare, tortoise)
+    if hare == 50:
+        print("hare wins")
+    elif tortoise == 50:
+        print("tortoise wins.Yay!")
+    print(f"Time of race : {time} seconds")
+
+main()
